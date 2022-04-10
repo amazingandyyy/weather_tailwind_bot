@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "standard --fix",
-    "start": "pm2-runtime start ecosystem.config.js --env production"
+    "start": "node index.js"
   },
   "private": true,
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
