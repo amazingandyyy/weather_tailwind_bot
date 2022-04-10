@@ -79,7 +79,32 @@ function abstractCurrentWeatherDay (day) {
 // messages.
 bot.on('message', (msg) => {
   console.log(msg)
+
+  if(msg.text.match(/^\/weather/)) {
+    const option = {
+      parse_mode: 'Markdown',
+      reply_markup: {
+        one_time_keyboard: true,
+        keyboard: [[{
+          text: 'My location',
+          request_location: true
+        }], ['Cancel']]
+      }
+    }
+    bot.sendMessage(msg.chat.id, 'What location?', option).then(() => {
+      bot.once('location', handleLocation)
+    })
+  }
 })
 
 var port = process.env.PORT || 3000;
-require('http').createServer((req, res)=>console.log(req.body)).listen(port);
+const server = require('http').createServer(() => {});
+server.listen(port);
+const sockets = new Set();
+server.on('connection', (socket) => {
+  sockets.add(socket);
+
+  server.once('close', () => {
+    sockets.delete(socket);
+  });
+});
