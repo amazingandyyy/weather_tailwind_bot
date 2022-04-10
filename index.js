@@ -1,10 +1,10 @@
 const TelegramBot = require('node-telegram-bot-api')
 const axios = require('axios')
 require('dotenv').config()
-const wheaterapiApiKey = process.env.wheaterapi_api_key
+const wheatherapiApiKey = process.env.WHEATHERAPI_API_KEY
 // For a description of the Bot API, see this page: https://core.telegram.org/bots/api
 // /token via @BotFather
-const token = process.env.telegram_token
+const token = process.env.TELEGRAM_BOT_TOKEN
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true })
@@ -35,7 +35,7 @@ const handleLocation = async (msg) => {
   const today = Math.floor(Date.now() / 1000)
   const yesterday = today - 24 * 60 * 60 // 24 hours ago
   const weatherEndpoint = (timestamp = '') => {
-    const r = `http://api.weatherapi.com/v1/forecast.json?key=${wheaterapiApiKey}&q=${latitude},${longitude}&unixdt=${timestamp}&days=${2}&alerts=yes`
+    const r = `http://api.weatherapi.com/v1/forecast.json?key=${wheatherapiApiKey}&q=${latitude},${longitude}&unixdt=${timestamp}&days=${2}&alerts=yes`
     console.log(r)
     return r
   }
